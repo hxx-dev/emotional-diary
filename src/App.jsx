@@ -4,10 +4,16 @@ import New from "./pages/New";
 import Diary from "./pages/Diary";
 import NotFound from "./pages/NotFound";
 import Button from "./components/common/Button";
+import Header from "./components/Header/Header";
 
 function App() {
   return (
     <>
+      <Header
+        title={"Header"}
+        leftBtn={<Button text={"left"} />}
+        rightBtn={<Button text={"right"} />}
+      />
       <Button
         text={"회색"}
         $type={"DEFAULT"}
