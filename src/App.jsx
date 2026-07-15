@@ -3,15 +3,39 @@ import Home from "./pages/Home";
 import New from "./pages/New";
 import Diary from "./pages/Diary";
 import NotFound from "./pages/NotFound";
+import Button from "./components/common/Button";
+import Header from "./components/Header/Header";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/new" element={<New />} />
-      <Route path="/diary" element={<Diary />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <>
+      <Header
+        title={"Header"}
+        leftBtn={<Button text={"left"} />}
+        rightBtn={<Button text={"right"} />}
+      />
+      <Button
+        text={"회색"}
+        $type={"DEFAULT"}
+        onClick={() => console.log("버튼 눌림")}
+      />
+      <Button
+        text={"녹색"}
+        $type={"POSITIVE"}
+        onClick={() => console.log("버튼 눌림")}
+      />
+      <Button
+        text={"붉은색"}
+        $type={"NEGATIVE"}
+        onClick={() => console.log("버튼 눌림")}
+      />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/new" element={<New />} />
+        <Route path="/diary" element={<Diary />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   );
 }
 
