@@ -10,6 +10,7 @@ const COLORS = {
 // $type 값에 따라 컬러 객체의 $type을 키로 색을 불러옮
 const Btn = styled.button`
   background-color: ${({ $type }) => COLORS[$type] || COLORS["DEFAULT"]};
+  color: ${({ $type }) => ($type === "POSITIVE" || $type === "NEGATIVE" ? "white" : "black")};
   font-size: 18px;
   border: none;
   border-radius: 5px;
@@ -18,9 +19,9 @@ const Btn = styled.button`
   white-space: nowrap;
 `;
 
-function Button({ text, $type, onClick }) {
-  return (
-    <Btn onClick={onClick} $type={$type}>
+function Button({ text, type, onClick, className }) {
+  return (// $을 붙혀 DOM에 접근해 이상한 값을 만든느 것을 방지
+    <Btn onClick={onClick} $type={type} className={className}>
       {text}
     </Btn>
   );
