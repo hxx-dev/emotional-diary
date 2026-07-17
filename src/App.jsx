@@ -80,27 +80,6 @@ function App() {
   };
   return (
     <>
-      <button
-        onClick={() => {
-          onCreate(new Date().getTime(), 1, "테스트 내용");
-        }}
-      >
-        CREATE 테스트
-      </button>
-      <button
-        onClick={() => {
-          onUpdate(1, new Date().getTime(), 3, "수정된 내용");
-        }}
-      >
-        UPDATE 테스트
-      </button>
-      <button
-        onClick={() => {
-          onDelete(1);
-        }}
-      >
-        DELETE 테스트
-      </button>
       <DataContext.Provider value={data}>
         <FuncContext.Provider
           value={{
