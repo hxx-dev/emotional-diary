@@ -18,9 +18,15 @@ const mocData = [
   },
   {
     id: 2,
-    createDate: new Date().getTime(),
+    createDate: new Date("2026-6-10").getTime(),
     emotionId: 2,
     content: "2번 일기 내용",
+  },
+  {
+    id: 3,
+    createDate: new Date("2026-6-8").getTime(),
+    emotionId: 3,
+    content: "3번 일기 내용",
   },
 ];
 
@@ -41,8 +47,8 @@ function reducer(state, action) {
 }
 
 // context
-const DataContext = createContext();
-const FuncContext = createContext();
+export const DataContext = createContext();
+export const FuncContext = createContext();
 
 function App() {
   const [data, dispatch] = useReducer(reducer, mocData);
