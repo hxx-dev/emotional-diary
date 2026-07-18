@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import Button from "../common/Button";
 import EmotionItem from "../EmotionItem/EmotionItem";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const emotionList = [
   { emotionId: 1, emotionName: "완전 좋음" },
@@ -55,33 +57,97 @@ const BtnSection = styled.div`
 const SectionContainer = styled.div`
   margin-bottom: 40px;
 `;
-function Editor() {
-  const emotionId = 2;
+// Date 객체 스트링으로 만드는 함수
+const getStringedDate = (targetDate) => {
+  let year = targetDate.getFullYear();
+  let month = targetDate.getMonth() + 1;
+  let date = targetDate.getDate();
+
+  if (month < 10) {
+    month = `0${month}`;
+  }
+  if (date < 10) {
+    date = `0${date}`;
+  }
+
+  return `${year}-${month}-${date}`;
+};
+
+function Editor({ onSubmit }) {
+  // 상태 관리
+  const [input, setInput] = useState({
+    createDate: new Date(),
+    emotionId: 3,
+    content: "",
+  });
+
+  const nav = useNavigate();
+  //이벤트 핸들러
+  const onChangeInput = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+
+    if (name === "createDate") {
+      value = new Date(value);
+    }
+
+    setInput({
+      ...input,
+      [name]: value,
+    });
+  };
+  //작성완료 버튼 이벤트 핸들러
+  const onSubmitButtonClick = () => {
+    onSubmit(input);
+  };
+
   return (
     <PageContainer>
       <SectionContainer>
         <SectionTitle>오늘의 날짜</SectionTitle>
-        <DateInput type="date" />
+        <DateInput
+          onChange={onChangeInput}
+          name={"createDate"}
+          value={getStringedDate(input.createDate)}
+          type="date"
+        />
       </SectionContainer>
       <SectionContainer>
         <SectionTitle>오늘의 감정</SectionTitle>
         <EmotionContainer>
           {emotionList.map((item) => (
             <EmotionItem
+              onClick={() =>
+                onChangeInput({
+                  target: {
+                    name: "emotionId",
+                    value: item.emotionId,
+                  },
+                })
+              }
               key={item.emotionId}
               {...item}
-              isSelected={item.emotionId === emotionId}
+              isSelected={item.emotionId === input.emotionId}
             />
           ))}
         </EmotionContainer>
       </SectionContainer>
       <SectionContainer>
         <SectionTitle>오늘의 일기</SectionTitle>
-        <ContentInput placeholder="오늘은 어땠나요?" />
+        <ContentInput
+          name={"content"}
+          value={input.content}
+          onChange={onChangeInput}
+          placeholder="오늘은 어땠나요?"
+        />
       </SectionContainer>
       <BtnSection>
-        <Button text={"취소하기"} />
-        <Button text={"작성완료"} type={"POSITIVE"} />
+        <Button onClick={() => nav(-1)} text={"취소하기"} />
+        <Button
+          onClick={onSubmitButtonClick}
+          text={"작성완료"}
+          type={"POSITIVE"}
+        />
       </BtnSection>
     </PageContainer>
   );
