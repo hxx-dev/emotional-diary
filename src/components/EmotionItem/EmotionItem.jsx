@@ -23,9 +23,13 @@ const EmtionImg = styled.img`
   margin-bottom: 10px;
 `;
 
-function EmotionItem({ emotionId, emotionName, isSelected }) {
+function EmotionItem({ emotionId, emotionName, isSelected, onClick }) {
   return (
-    <Container $isSelected={isSelected} $emotionId={emotionId}>
+    <Container
+      onClick={onClick}
+      $isSelected={isSelected}
+      $emotionId={emotionId}
+    >
       <EmtionImg src={getEmotionImage(emotionId)} />
       <div>{emotionName}</div>
     </Container>
