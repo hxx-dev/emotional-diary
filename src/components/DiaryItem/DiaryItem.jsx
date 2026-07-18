@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Button from "../common/Button";
 import getEmotionImage from "../../util/get-emotion-image";
+import { useNavigate } from "react-router-dom";
 
 const COLORS = {
   1: "rgb(100, 201, 100)",
@@ -48,18 +49,19 @@ const ContentSection = styled.div`
 const BtnSection = styled.div`
   min-width: 70px;
 `;
-function DiaryItem() {
-  const emotionId = 5;
+function DiaryItem({ id, emotionId, createDate, content }) {
+  const nav = useNavigate();
+
   return (
     <Container>
-      <ImgSection $emotionId={emotionId}>
+      <ImgSection onClick={() => nav(`/diary/${id}`)} $emotionId={emotionId}>
         <EmoImg src={getEmotionImage(emotionId)} />
       </ImgSection>
-      <InfoSection>
-        <DateSection>{new Date().toLocaleDateString()}</DateSection>
-        <ContentSection>일기 내용</ContentSection>
+      <InfoSection onClick={() => nav(`/diary/${id}`)}>
+        <DateSection>{new Date(createDate).toLocaleDateString()}</DateSection>
+        <ContentSection>{content}</ContentSection>
       </InfoSection>
-      <BtnSection>
+      <BtnSection onClick={() => nav(`/edit/${id}`)}>
         <Button text={"수정하기"} />
       </BtnSection>
     </Container>
