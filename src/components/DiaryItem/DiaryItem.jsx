@@ -2,14 +2,7 @@ import styled from "styled-components";
 import Button from "../common/Button";
 import getEmotionImage from "../../util/get-emotion-image";
 import { useNavigate } from "react-router-dom";
-
-const COLORS = {
-  1: "rgb(100, 201, 100)",
-  2: "rgb(157, 215, 114)",
-  3: "rgb(253, 206, 23)",
-  4: "rgb(253, 132, 70)",
-  5: "rgb(253, 86, 95)",
-};
+import { COLORS } from "../../util/constants";
 
 const Container = styled.div`
   display: flex;
