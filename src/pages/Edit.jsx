@@ -4,31 +4,16 @@ import Button from "../components/common/Button";
 import Editor from "../components/Editor/Editor";
 import { useContext, useEffect, useState } from "react";
 import { FuncContext, DataContext } from "../App";
+import useDiary  from "../hooks/useDiary";
 
 function Edit() {
   const params = useParams();
 
   const nav = useNavigate();
 
-  const [curDiaryItem, setCurDiaryItem] = useState();
-
   const { onDelete, onUpdate } = useContext(FuncContext);
 
-  const data = useContext(DataContext);
-  
-  //선택된 일기로 상태값 변환
-  useEffect(() => {
-    const currentDiaryItem = data.find(
-      (item) => String(item.id) === String(params.id),
-    );
-
-    if (!currentDiaryItem) {
-      window.alert("존재하지 않는 일기입니다.");
-      nav("/", { replace: true });
-    }
-
-    setCurDiaryItem(currentDiaryItem);
-  }, [params.id]);
+  const curDiaryItem = useDiary(params.id);
 
   // 삭제 버튼 이벤트 핸들러
   const onClickDelete = () => {
