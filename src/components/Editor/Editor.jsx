@@ -4,6 +4,7 @@ import EmotionItem from "../EmotionItem/EmotionItem";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { emotionList } from "../../util/constants";
+import { getStringedDate } from "../../util/get-stringed-date";
 
 const PageContainer = styled.div`
   display: flex;
@@ -50,21 +51,6 @@ const BtnSection = styled.div`
 const SectionContainer = styled.div`
   margin-bottom: 40px;
 `;
-// Date 객체 스트링으로 만드는 함수
-const getStringedDate = (targetDate) => {
-  let year = targetDate.getFullYear();
-  let month = targetDate.getMonth() + 1;
-  let date = targetDate.getDate();
-
-  if (month < 10) {
-    month = `0${month}`;
-  }
-  if (date < 10) {
-    date = `0${date}`;
-  }
-
-  return `${year}-${month}-${date}`;
-};
 
 function Editor({ onSubmit, initData }) {
   // 상태 관리
